@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+#nav-mod {
+  margin-top: 20px;
+}
+
+.form-container {
+  height: 60vh;
+  width: max-content;
+  margin: auto;
+  margin-top: 100px;
+}
+/* 
+.form-width {
+  width: max-content;
+  margin: auto;
+} */
+
+.news-layout {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin-top: 50px;
+  overflow-x: hidden;
+}
+
+.news-card {
+  margin: 15px;
+}
+
+
+#news-source {
+  font-size: 0.9rem;
+}
+

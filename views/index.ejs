@@ -1,0 +1,27 @@
+<% include ./partials/header.ejs %>
+
+<div class="news-layout">
+  <% allNews.forEach((news) => { %>
+    <a href="<%= news.url %>" target="_blank">
+      <div class="news-card">
+        <div class="ui card">
+          <div class="image">
+            <img src= "<%= news.urlToImage %>" >
+          </div>
+          <div class="content">
+            <a id="news-source" class="header" >Source: <%= news.source.name %></a>
+            <div class="meta">
+              <span class="date"><%= moment().format("MMM Do YY") %></span>
+            </div>
+            <div class="description">
+              <%= news.title %>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </a>
+  <% }) %>    
+</div>
+
+
+<% include ./partials/footer.ejs %>
