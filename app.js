@@ -32,6 +32,8 @@ app.use(express.static(__dirname + '/public'));
 // PASSPORT SETUP
 //===========================
 
+// secret: '39b88337ee7110e04bce5d7928e97261',
+
 app.use(require('express-session')({
     secret: process.env.SECRET,
     resave: false,
@@ -137,6 +139,7 @@ app.get('/logout', (req, res) => {
 })
 
 const API = process.env.API_KEY 
+// const API = 'ed8cf700df0e4476babcd00e9e31cdf0';
 
 async function newsFinder(category, country) {
   let response = await fetch(`https://newsapi.org/v2/top-headlines?category=${category}&country=${country}&pageSize=36&apiKey=${API}`);
@@ -155,3 +158,7 @@ async function newsFinderIndia() {
 app.listen(process.env.PORT, process.env.IP, () => {
   console.log('SERVER STARTED!!')
 })
+
+// app.listen(3000, () => {
+//   console.log('SERVER STARTED!!')
+// })
