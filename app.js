@@ -56,7 +56,7 @@ app.use((req, res, next) => {
 
 
 app.get('/', (req, res) => {
-  res.redirect('/home');
+  res.send('root page')
 })
 
 app.get('/home', async function(req ,res) {
