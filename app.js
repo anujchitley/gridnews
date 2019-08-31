@@ -61,7 +61,9 @@ app.get('/', (req, res) => {
 
 app.get('/home', async function(req ,res) {
   const allNews = await newsFinder('general', 'us').then((data) => data);
-  res.render('index', {allNews: allNews})
+  Promise.all([allNews]).then(() => {
+    res.render('index', {allNews: allNews})
+  })
 })  
 
 
