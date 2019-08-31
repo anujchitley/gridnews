@@ -59,13 +59,13 @@ app.get('/', (req, res) => {
   res.send('root page')
 })
 
-app.get('/home', (req ,res) => {
-  const allNews = newsFinder('general', 'us').then((data) => data);
-  Promise.all([
-    allNews
-  ]).then((results) => {
-    res.render('index', {allNews: results[0]})
-  }).catch(err => res.send('Something went wrong!!'))
+app.get('/home', async (req ,res) => {
+  const allNews = await newsFinder('general', 'us');
+  if (!allNews.length) {
+    res.send('loading')
+  } else {
+    res.render('index', {allNews : allNews})
+  }
   
   // Promise.all([allNews]).then(function(results) {
   //   res.render('index', {allNews: results[0]})
