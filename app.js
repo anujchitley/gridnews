@@ -59,11 +59,17 @@ app.get('/', (req, res) => {
   res.send('root page')
 })
 
-app.get('/home', function(req ,res, next) {
+app.get('/home', (req ,res) => {
   const allNews = newsFinder('general', 'us').then((data) => data);
-  Promise.all([allNews]).then(function(results) {
+  Promise.all([
+    allNews
+  ]).then((results) => {
     res.render('index', {allNews: results[0]})
-  })
+  }).catch(err => res.send('Something went wrong!!'))
+  
+  // Promise.all([allNews]).then(function(results) {
+  //   res.render('index', {allNews: results[0]})
+  // })
 })  
 
 
