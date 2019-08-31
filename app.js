@@ -59,17 +59,11 @@ app.get('/', (req, res) => {
   res.send('root page')
 })
 
-app.get('/home', async (req ,res) => {
-  const allNews = await newsFinder('general', 'us');
-  if (!allNews.length) {
-    res.send('loading')
-  } else {
-    res.render('index', {allNews : allNews})
-  }
-  
-  // Promise.all([allNews]).then(function(results) {
-  //   res.render('index', {allNews: results[0]})
-  // })
+app.get('/home',  (req ,res) => {
+  const allNews = newsFinder('general', 'us');  
+  Promise.all([allNews]).then(function(results) {
+    res.render('index', {allNews: results[0]})
+  })
 })  
 
 
@@ -142,16 +136,16 @@ app.get('/logout', (req, res) => {
   res.redirect('/home')
 })
 
+const API = process.env.API_KEY 
+
 async function newsFinder(category, country) {
-  let response = await fetch(`https://newsapi.org/v2/top-headlines?category=${category}&country=${country}&pageSize=36&apiKey=`);
+  let response = await fetch(`https://newsapi.org/v2/top-headlines?category=${category}&country=${country}&pageSize=36&apiKey=${API}`);
   let data = await response.json();
   return data.articles;
 }
 
-const api = process.env.API_KEY 
-
 async function newsFinderIndia() {
-  let response = await fetch(`https://newsapi.org/v2/everything?q=india&pageSize=36&apiKey=${api}`);
+  let response = await fetch(`https://newsapi.org/v2/everything?q=india&pageSize=36&apiKey=${API}`);
   let data = await response.json();
   return data.articles;
 }
