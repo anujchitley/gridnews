@@ -11,7 +11,7 @@ const moment = require('moment');
 
 
 
-mongoose.connect('mongodb://localhost/newsgrid', {useNewUrlParser:true});
+mongoose.connect(process.env.DATABASEURL, {useNewUrlParser:true});
 
 const UserSchema = mongoose.Schema({ 
   username: String,
@@ -31,8 +31,6 @@ app.use(express.static(__dirname + '/public'));
 //===========================
 // PASSPORT SETUP
 //===========================
-
-// secret: '39b88337ee7110e04bce5d7928e97261',
 
 app.use(require('express-session')({
     secret: process.env.SECRET,
@@ -58,16 +56,13 @@ app.use((req, res, next) => {
 
 
 app.get('/', (req, res) => {
-  res.send('root page')
+  res.redirect('/home')
 })
 
-app.get('/home',  (req ,res) => {
-  const allNews = newsFinder('general', 'us');  
-  Promise.all([allNews]).then(function(results) {
-    res.render('index', {allNews: results[0]})
-  })
-})  
-
+app.get('/home', async function(req ,res) {
+  const allNews = await newsFinder('general', 'us').then((data) => data);
+  res.render('index', {allNews: allNews})
+})
 
   
 app.get('/business', async function(req ,res) {
@@ -139,7 +134,6 @@ app.get('/logout', (req, res) => {
 })
 
 const API = process.env.API_KEY 
-// const API = 'ed8cf700df0e4476babcd00e9e31cdf0';
 
 async function newsFinder(category, country) {
   let response = await fetch(`https://newsapi.org/v2/top-headlines?category=${category}&country=${country}&pageSize=36&apiKey=${API}`);
@@ -154,11 +148,7 @@ async function newsFinderIndia() {
 }
 
 
-
 app.listen(process.env.PORT, process.env.IP, () => {
   console.log('SERVER STARTED!!')
 })
 
-// app.listen(3000, () => {
-//   console.log('SERVER STARTED!!')
-// })
