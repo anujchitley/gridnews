@@ -2,6 +2,9 @@
 
 <div class="news-layout">
   <% allNews.forEach((news) => { %>
+    <% const date = news.publishedAt.slice(0, 10) %>
+    <% const time = news.publishedAt.slice(11, 20) %>
+    <% const published = date.concat(" ", time) %>
     <a href="<%= news.url %>" target="_blank">
       <div class="news-card">
         <div class="ui card">
@@ -11,7 +14,7 @@
           <div class="content">
             <a id="news-source" class="header" >Source: <%= news.source.name %></a>
             <div class="meta">
-              <span class="date"><%= moment().format("MMM Do YY") %></span>
+              <span class="date"><%= moment(published).startOf('hour').fromNow() %> </span>
             </div>
             <div class="description">
               <%= news.title %>

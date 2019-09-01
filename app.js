@@ -8,8 +8,7 @@ const LocalStrategy = require('passport-local');
 const passportLocalMongoose = require('passport-local-mongoose');
 const fetch = require('node-fetch');
 const moment = require('moment');
-
-
+require('dotenv').config()
 
 mongoose.connect(process.env.DATABASEURL, {useNewUrlParser:true});
 
@@ -81,12 +80,12 @@ app.get('/technology', async function(req ,res) {
 })  
 
 app.get('/entertainment', async function(req ,res) {
-  const allNews = await newsFinder('entertainment', 'in').then((data) => data);
+  const allNews = await newsFinder('entertainment', 'us').then((data) => data);
   res.render('index', {allNews: allNews})
 }) 
 
 app.get('/india', async function(req ,res) {
-  const allNews = await newsFinderIndia().then((data) => data);
+  const allNews = await newsFinder('general', 'in').then((data) => data);
   res.render('index', {allNews: allNews})
 })  
 

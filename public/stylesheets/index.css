@@ -7,6 +7,12 @@
   margin-top: 20px;
 }
 
+.nav-sticky {
+  position: sticky;
+  top: 0;
+  width: 100%; 
+}
+
 .form-container {
   height: 60vh;
   width: max-content;
